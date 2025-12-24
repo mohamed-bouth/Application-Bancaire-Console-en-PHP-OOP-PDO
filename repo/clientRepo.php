@@ -21,4 +21,39 @@ class clientRepo {
             echo($e);
         }
     }
+
+    public function modifieClient($nom , $prenom , $email){
+        $sql = "SELECT * FROM clients WHERE email = :email";
+        $stmt1 = $this->db->prepare($sql);
+        $stmt1->execute([
+            ":email" => $email
+        ]);
+        $result1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+
+        if(!$result1){
+            exit();
+        }
+
+        $id = $result1[0]["id"];
+        try {
+            $sql = "UPDATE clients SET nom = :nom , prenom = :prenom , email = :email WHERE id = :id";
+            $stmt2 = $this->db->prepare($sql);
+            $stmt2->execute([
+                ":nom" => $nom,
+                ":prenom" => $prenom,
+                ":email" => $email,
+                ":id" => $id
+            ]);
+
+            $sql = "SELECT * FROM clients WHERE id = :id";
+            $stmt3 = $this->db->prepare($sql);
+            $stmt3->execute([
+                ":id" => $id
+            ]);
+            print_r($stmt3->fetchAll(PDO::FETCH_ASSOC));
+        } catch (Exception $e) {
+            print_r($e);
+        }
+    }
+
 }
