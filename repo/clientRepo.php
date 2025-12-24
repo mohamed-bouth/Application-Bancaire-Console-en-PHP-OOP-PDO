@@ -56,4 +56,16 @@ class clientRepo {
         }
     }
 
+    public function supprimeClient($email){
+        try{
+            $sql = "DELETE FROM clients WHERE email = :email";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+            ":email"=> $email
+            ]);
+            echo("the client has removed succesfuly");
+        } catch (Exception $e) {
+            echo($e);
+        }
+    }
 }
