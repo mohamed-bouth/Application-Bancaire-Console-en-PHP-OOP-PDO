@@ -45,4 +45,48 @@ class compteRepo {
             echo $e;
         }
     }
+
+    public function afficheCompte(){
+        try {
+            $sql = "SELECT * FROM clients cl JOIN comptes cm ON cl.id = cm.client_id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $comptes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(!$comptes){
+                echo "thier no compte !";
+                return;
+            }
+            foreach ($comptes as $compte) {
+                echo "#" . $compte['id'] .  " |nom: " . $compte["nom"] ." | prenom: ". $compte["prenom"] . " | email :" . $compte["email"] ." | solde: ". $compte["solde"] . " | compte_type: " . $compte["compte_type"] . "<br>";
+            }
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
+    public function renderComptes(){
+        try {
+            $sql = "SELECT * FROM comptes";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if(!$results){
+                echo "thier no compte !";
+                return;
+            }
+            $comptes = [];
+            $i = 0;
+            foreach ($results as $compte) {
+                if($compte["compte_type"] == "courant"){
+                    $comptes[$i] = new compteCourant ($compte["id"] , $compte["client_id"] , $compte["solde"]);
+                }else{
+                    $comptes[$i] = new compteEpargne ($compte["id"] , $compte["client_id"] , $compte["solde"]);
+                }
+                $i++;
+            }   
+            return $comptes;
+        } catch (Exception $e) {
+            echo $e;
+        }
+    }
 }
