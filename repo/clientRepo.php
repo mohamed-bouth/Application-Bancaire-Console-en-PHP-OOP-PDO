@@ -68,4 +68,46 @@ class clientRepo {
             echo($e);
         }
     }
+
+    public function afficheClient(){
+        try{
+            $sql = "SELECT * FROM clients";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            print_r($clients);
+        } catch (Exception $e) {
+            echo($e);
+        }
+    }
+    public function renderClient(){
+        try{
+            $sql = "SELECT * FROM clients";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+            $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $users = [];
+            $i = 0;
+            foreach ($clients as $client) {
+                $users[$i] = new client ($client["id"], $client["nom"], $client["prenom"], $client["email"], $client["created_at"] ) ;
+                $i++;
+            }
+        }catch (Exception $e) {
+            echo($e);
+        }
+        return $users;
+    }
+
+    public function chercheClient($email , $users){
+        foreach ( $users as  $user) {
+            $flag = false;
+           if( $user->getEmail() == $email ){
+                $flag = true;
+                echo "+ we found client with email: " . $email . "<br>";
+                return $user;
+            }
+        }
+        echo "- we dont found client with email: " . $email . "<br>";
+    }
 }
