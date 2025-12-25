@@ -15,8 +15,6 @@ class clientRepo {
                 ":prenom" => $prenom,
                 ":email" => $email
             ]);
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            print_r($result);
         } catch (Exception $e) {
             echo($e);
         }
@@ -31,7 +29,7 @@ class clientRepo {
         $result1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
 
         if(!$result1){
-            exit();
+            return;
         }
 
         $id = $result1[0]["id"];
@@ -108,6 +106,8 @@ class clientRepo {
                 return $user;
             }
         }
-        echo "- we dont found client with email: " . $email . "<br>";
+        if(!$flag){
+            echo "- we dont found client with email: " . $email . "<br>";
+        }
     }
 }
