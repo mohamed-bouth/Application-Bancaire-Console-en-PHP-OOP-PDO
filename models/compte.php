@@ -12,7 +12,7 @@ abstract class compte {
 
     }
 
-    abstract public function deposerSolde($solde);
-    abstract public function retirerSolde($solde);
-    abstract public function envoyerSolde($solde);
+    abstract public function deposerSolde($pdo , $solde);
+    abstract public function retirerSolde($pdo , $solde);
+    abstract public function envoyerSolde($pdo , $solde);
 }
