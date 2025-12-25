@@ -5,6 +5,7 @@ class clientRepo {
     public function __construct($db) {
         $this->db = $db;
     }
+    
     public function ajouteClient($nom , $prenom , $email){
         try {
             $sql = "INSERT INTO clients (nom , prenom , email)
@@ -67,7 +68,7 @@ class clientRepo {
         }
     }
 
-    public function afficheClient(){
+    public function afficheClients(){
         try{
             $sql = "SELECT * FROM clients";
             $stmt = $this->db->prepare($sql);
@@ -78,7 +79,7 @@ class clientRepo {
             echo($e);
         }
     }
-    public function renderClient(){
+    public function renderClients(){
         try{
             $sql = "SELECT * FROM clients";
             $stmt = $this->db->prepare($sql);
