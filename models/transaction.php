@@ -14,6 +14,6 @@ class transaction {
         $this->date = $date;
     }
     public function getInfo(){
-        echo "compte_id: ".$this->compte_id." | id: ".$this->id. " | type: ".$this->type." | amount: ".$this->amount;
+        echo "compte_id: ".$this->compte_id." | id: ".$this->id. " | type: ".$this->type." | amount: ".$this->amount . " | date de creation: " . $this->date . "<br>";
     }
 }
