@@ -73,8 +73,10 @@ class clientRepo {
             $sql = "SELECT * FROM clients";
             $stmt = $this->db->prepare($sql);
             $stmt->execute();
-            $clients = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            print_r($clients);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $client){
+                echo "#" . $client["id"] ." | nom: ". $client["nom"] . " | prenom: ". $client["prenom"] ." | email: ". $client["email"] . "created at: ". $client["created_at"] . "<br>";
+            }
         } catch (Exception $e) {
             echo($e);
         }
