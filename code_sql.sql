@@ -12,15 +12,18 @@ CREATE TABLE clients (
 CREATE TABLE comptes (
 	id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
 	client_id INT NOT NULL,
+	rib INT NOT NULL,
 	solde DECIMAL(10,2) NOT NULL,
 	compte_type ENUM("courant","epargne") NOT NULL,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-	
-)
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (client_id) REFERENCES clients(id)
+);
 
 CREATE TABLE transactions (
 	id INT PRIMARY KEY UNIQUE AUTO_INCREMENT,
-	transaction_type ENUM("recu","retrait") NOT NULL,
+	compte_id INT NOT NULL,
+	transaction_type ENUM("deposer","retirer","envoyer") NOT NULL,
 	amount DECIMAL(10,2) NOT NULL,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-)
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (compte_id) REFERENCES comptes(id)
+);
