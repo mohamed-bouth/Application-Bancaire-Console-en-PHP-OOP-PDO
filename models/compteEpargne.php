@@ -43,13 +43,53 @@ class compteEpargne extends compte {
         $this->solde = $newSolde;
         echo "solde: " . $this->solde;
     }
-    public function envoyerSolde($pdo , $solde){
-        
+    public function envoyerSolde($pdo , $rib ,  $solde){
+        if($solde > $this->solde){
+            return;
+        }
+
+        $newSolde = $this->solde - $solde;
+        $enterAdmin = new compteRepo($pdo);
+        $comptes = $enterAdmin->renderComptes();
+        $compte = $enterAdmin->chercheCompte($rib , $comptes);
+        if(!$compte){
+            return;
+        }
+
+        try {
+            $newSendSolde = $compte->getSolde() + $solde;
+            echo $newSendSolde . " = " . $compte->getSolde() . " + " . $solde;
+
+            $sql = "UPDATE comptes SET solde = :solde WHERE client_id = :client_id AND rib = :rib ";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":solde"=> $newSolde,
+                ":client_id"=> $this->clientId,
+                ":rib"=> $this->rib
+            ]);
+
+            $sql = "UPDATE comptes SET solde = :solde WHERE client_id = :client_id AND rib = :rib ";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":solde"=> $newSendSolde,
+                ":client_id"=> $compte->getClientId(),
+                ":rib"=> $rib
+            ]);
+        } catch(Exception $e){
+            echo $e;
+        }
+
     }
     public function getInfo(){
         echo "#" . $this->id . " | clientId: ". $this->clientId . " | rib: " . $this->rib . " | solde: ". $this->solde . "<br>";
     }
     public function getRib(){
         return $this->rib;
+    }
+    public function getSolde(){
+        return $this->solde;
+    }
+    public function getClientId() {
+        return $this->clientId;
     }
 }

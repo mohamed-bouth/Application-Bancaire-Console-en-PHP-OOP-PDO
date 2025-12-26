@@ -22,5 +22,8 @@ $myuser->getComptes($pdo);
 $comptes[0]->getInfo();
 
 $mycompte = $admin2->chercheCompte(957328564, $comptes);
+$mycompte->envoyerSolde($pdo , 457392843 , 1);
+
+$myuser->getComptes($pdo);
 
 

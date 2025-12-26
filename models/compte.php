@@ -16,6 +16,8 @@ abstract class compte {
 
     abstract public function deposerSolde($pdo , $solde);
     abstract public function retirerSolde($pdo , $solde);
-    abstract public function envoyerSolde($pdo , $solde);
+    abstract public function envoyerSolde($pdo , $rib , $solde);
     abstract public function getRib();
+    abstract public function getSolde();
+    abstract public function getClientId();
 }
