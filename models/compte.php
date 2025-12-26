@@ -20,4 +20,5 @@ abstract class compte {
     abstract public function getRib();
     abstract public function getSolde();
     abstract public function getClientId();
+    abstract public function getId();
 }

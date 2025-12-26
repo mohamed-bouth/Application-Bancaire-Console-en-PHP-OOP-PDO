@@ -16,6 +16,12 @@ class compteEpargne extends compte {
                 ":client_id"=> $this->clientId
             ]);
             $this->solde = $newSolde;
+            $sql = "INSERT INTO transactions (compte_id , transaction_type , amount) VALUES ( :compte_id , 'deposer' , :amount )";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":compte_id" => $this->id,
+                ":amount"=>  $solde
+            ]);
         }catch(Exception $e){
             echo $e;
         }
@@ -37,6 +43,12 @@ class compteEpargne extends compte {
                 ":client_id"=> $this->clientId
             ]);
             $this->solde = $newSolde;
+            $sql = "INSERT INTO transactions (compte_id , transaction_type , amount) VALUES ( :compte_id , 'retirer' , :amount )";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":compte_id" => $this->id,
+                ":amount"=>  -$solde
+            ]);
         }catch(Exception $e){
             echo $e;
         }
@@ -75,6 +87,18 @@ class compteEpargne extends compte {
                 ":client_id"=> $compte->getClientId(),
                 ":rib"=> $rib
             ]);
+            $sql = "INSERT INTO transactions (compte_id , transaction_type , amount) VALUES ( :compte_id , 'envoyer' , :amount )";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":compte_id" => $this->id,
+                ":amount"=>  -$solde
+            ]);
+            $sql = "INSERT INTO transactions (compte_id , transaction_type , amount) VALUES ( :compte_id , 'envoyer' , :amount )";
+            $stmt = $pdo->prepare($sql);
+            $stmt ->execute([
+                ":compte_id" => $compte->getId(),
+                ":amount"=>  $solde
+            ]);
         } catch(Exception $e){
             echo $e;
         }
@@ -91,5 +115,8 @@ class compteEpargne extends compte {
     }
     public function getClientId() {
         return $this->clientId;
+    }
+    public function getId(){
+        return $this->id;
     }
 }
