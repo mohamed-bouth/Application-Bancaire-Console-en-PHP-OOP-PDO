@@ -25,7 +25,7 @@ class client {
                 return;
             }
             foreach ($comptes as $compte) {
-                echo "#" . $compte['id'] .  " |nom: " . $compte["nom"] ." | prenom: ". $compte["prenom"] . " | email :" . $compte["email"] ." | solde: ". $compte["solde"] . " | compte_type: " . $compte["compte_type"] . "<br>";
+                echo "#" . $compte['id'] .  " |nom: " . $compte["nom"] ." | prenom: ". $compte["prenom"] . " | email :" . $compte["email"] . " | rib: " . $compte["rib"] . " | solde: ". $compte["solde"] . " | compte_type: " . $compte["compte_type"] . "<br>";
             }
         } catch (Exception $e) {
             echo $e;

@@ -2,6 +2,7 @@
 abstract class compte {
     protected $id;
     protected $clientId;
+    protected $rib;
     protected $solde;
 
     public function __construct($id, $clientId, $solde) {

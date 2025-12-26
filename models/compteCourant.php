@@ -3,8 +3,8 @@ class compteCourant extends compte {
     private static $depositFee = 1;
     private static $decouvert_max = - 500;
 
-    public function __construct($id , $clientId , $solde){
-        parent::__construct($id , $clientId , $solde);
+    public function __construct($id , $clientId , $rib , $solde){
+        parent::__construct($id , $clientId , $rib , $solde);
     }
     public function deposerSolde($pdo , $solde){
         try {

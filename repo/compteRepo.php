@@ -7,11 +7,13 @@ class compteRepo {
     }
     public function ajouteCompte($clientId , $compteType){
         try {
-            $sql = "INSERT INTO comptes (client_id , solde , compte_type) VALUES( :client_id, 0 , :compte_type)";
+            $randomNumber = random_int(1000000 , 9999999);
+            $sql = "INSERT INTO comptes (client_id , rib , solde , compte_type) VALUES( :client_id, :rib , 0 , :compte_type)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ":client_id" => $clientId,
-                ":compte_type" => $compteType
+                ":compte_type" => $compteType,
+                ":rib" => $randomNumber
             ]);
         } catch (Exception $e) {
             echo $e;
@@ -57,7 +59,7 @@ class compteRepo {
                 return;
             }
             foreach ($comptes as $compte) {
-                echo "#" . $compte['id'] .  " |nom: " . $compte["nom"] ." | prenom: ". $compte["prenom"] . " | email :" . $compte["email"] ." | solde: ". $compte["solde"] . " | compte_type: " . $compte["compte_type"] . "<br>";
+                echo "#" . $compte['id'] .  " |nom: " . $compte["nom"] ." | prenom: ". $compte["prenom"] . " | email :" . $compte["email"] . " | rib: " . $compte["rib"] . " | solde: ". $compte["solde"] . " | compte_type: " . $compte["compte_type"] . "<br>";
             }
         } catch (Exception $e) {
             echo $e;
@@ -78,9 +80,9 @@ class compteRepo {
             $i = 0;
             foreach ($results as $compte) {
                 if($compte["compte_type"] == "courant"){
-                    $comptes[$i] = new compteCourant ($compte["id"] , $compte["client_id"] , $compte["solde"]);
+                    $comptes[$i] = new compteCourant ($compte["id"] , $compte["client_id"] , $compte["rib"] , $compte["solde"]);
                 }else{
-                    $comptes[$i] = new compteEpargne ($compte["id"] , $compte["client_id"] , $compte["solde"]);
+                    $comptes[$i] = new compteEpargne ($compte["id"] , $compte["client_id"] , $compte["rib"] , $compte["solde"]);
                 }
                 $i++;
             }   

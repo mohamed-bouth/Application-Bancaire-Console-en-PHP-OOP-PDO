@@ -3,8 +3,8 @@ class compteEpargne extends compte {
     private static $depositFee = 1;
     private static $decouvert_max = 0;
 
-    public function __construct($id , $clientId , $solde){
-        parent::__construct($id , $clientId , $solde);
+    public function __construct($id , $clientId , $rib , $solde){
+        parent::__construct($id , $clientId , $rib , $solde);
     }
     public function deposerSolde($pdo , $solde){
         try {
@@ -43,5 +43,7 @@ class compteEpargne extends compte {
         $this->solde = $newSolde;
         echo "solde: " . $this->solde;
     }
-    public function envoyerSolde($pdo , $solde){}
+    public function envoyerSolde($pdo , $solde){
+        
+    }
 }
