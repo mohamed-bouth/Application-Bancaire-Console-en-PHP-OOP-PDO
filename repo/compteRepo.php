@@ -91,4 +91,17 @@ class compteRepo {
             echo $e;
         }
     }
+    public function chercheCompte($rib , $comptes){
+        foreach ( $comptes as  $compte) {
+            $flag = false;
+           if( $compte->getRib() == $rib ){
+                $flag = true;
+                echo "+ we found compte with rib: " . $rib . "<br>";
+                return $compte;
+            }
+        }
+        if(!$flag){
+            echo "- we dont found compte with rib: " . $rib . "<br>";
+        }
+    }
 }

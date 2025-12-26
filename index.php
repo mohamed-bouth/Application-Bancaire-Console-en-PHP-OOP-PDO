@@ -18,3 +18,9 @@ $comptes = $admin2->renderComptes();
 $myuser = $admin->chercheClient("mohamedbouth87@gmail.com" , $clients);
 $myuser->getComptes($pdo);
 
+
+$comptes[0]->getInfo();
+
+$mycompte = $admin2->chercheCompte(957328564, $comptes);
+
+

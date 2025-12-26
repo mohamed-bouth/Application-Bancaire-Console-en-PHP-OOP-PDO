@@ -5,10 +5,11 @@ abstract class compte {
     protected $rib;
     protected $solde;
 
-    public function __construct($id, $clientId, $solde) {
+    public function __construct($id, $clientId, $rib, $solde) {
 
     $this->id = $id;
     $this->clientId = $clientId;
+    $this->rib = $rib;
     $this->solde = $solde;
 
     }
@@ -16,4 +17,5 @@ abstract class compte {
     abstract public function deposerSolde($pdo , $solde);
     abstract public function retirerSolde($pdo , $solde);
     abstract public function envoyerSolde($pdo , $solde);
+    abstract public function getRib();
 }

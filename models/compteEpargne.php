@@ -46,4 +46,10 @@ class compteEpargne extends compte {
     public function envoyerSolde($pdo , $solde){
         
     }
+    public function getInfo(){
+        echo "#" . $this->id . " | clientId: ". $this->clientId . " | rib: " . $this->rib . " | solde: ". $this->solde . "<br>";
+    }
+    public function getRib(){
+        return $this->rib;
+    }
 }
